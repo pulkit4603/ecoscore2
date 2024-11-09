@@ -204,6 +204,11 @@ const Testimonials = () => {
       author: "John Doe",
       role: "Sustainability Director",
     },
+    {
+      text: "The insights provided by EcoScore are invaluable for our business.",
+      author: "Loid Forger",
+      role: "Sustainability Director"
+    }
   ];
 
   return (

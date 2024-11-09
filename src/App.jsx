@@ -4,6 +4,9 @@ import LandingPage from "@/pages/LandingPage";
 import SignIn from "@/pages/SignIn";
 import SignUp from "@/pages/SignUp";
 import AnalyticsDash from "@/pages/IndividualAnalytics";
+import ChallengesCompetitions from "./pages/Challenges";
+import Leaderboard from "./pages/Leaderboard";
+import JoinCompetitionForm from "./pages/JoinCompetitionForm";
 
 const App = () => {
   return (
@@ -14,6 +17,9 @@ const App = () => {
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/analytics" element={<AnalyticsDash />} />
+        <Route path="/challenges" element={<ChallengesCompetitions />} />
+        <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path="/join-competition" element={<JoinCompetitionForm />} />
       </Routes>
     </Router>
   );
