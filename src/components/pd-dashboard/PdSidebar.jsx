@@ -1,4 +1,3 @@
-"use client";
 import { useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
 import { Link } from "react-router-dom";
@@ -6,7 +5,7 @@ import { motion } from "framer-motion";
 import { userName, sidebarLinks } from "@/data/data.jsx";
 
 export default function PdSidebar() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   return (
     <>
       <Sidebar open={open} setOpen={setOpen} animate={false}>

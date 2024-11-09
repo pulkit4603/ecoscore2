@@ -8,6 +8,7 @@ import InvoicesPage from "@/routes/Dash.invoices";
 import DashboardPage from "@/routes/Dash";
 import SignInPage from "@/routes/Sign-in";
 import SignUpPage from "@/routes/Sign-up";
+import AnalyticsDash from "@/pages/IndividualAnalytics";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/analytics" element={<AnalyticsDash />} />
       </Routes>
     </div>
   );
