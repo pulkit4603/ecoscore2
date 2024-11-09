@@ -199,12 +199,12 @@ const Testimonials = () => {
   const testimonials = [
     {
       text: "EcoScore has transformed how we think about environmental impact.",
-      author: "Jane Smith",
+      author: "Yor Forger",
       role: "CEO, Green Tech"
     },
     {
       text: "The insights provided by EcoScore are invaluable for our business.",
-      author: "John Doe",
+      author: "Loid Forger",
       role: "Sustainability Director"
     }
   ];

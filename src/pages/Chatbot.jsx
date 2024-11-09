@@ -18,10 +18,9 @@ const Chatbot = () => {
     const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
-    // Function to send message to the API
     const sendToAPI = async (userMessage) => {
         try {
-            const response = await fetch('YOUR_API_ENDPOINT', {
+            const response = await fetch('API_ENDPOINT', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -29,8 +28,7 @@ const Chatbot = () => {
                 body: JSON.stringify({
                     message: userMessage,
                     timestamp: new Date().toISOString(),
-                    sessionId: Math.random().toString(36).substring(7), // Simple session ID
-                    // Add any other required metadata
+                    sessionId: Math.random().toString(36).substring(7), 
                 })
             });
 
@@ -46,10 +44,9 @@ const Chatbot = () => {
         }
     };
 
-    // Function to get response from ML pipeline
     const getMLResponse = async () => {
         try {
-            const response = await fetch('YOUR_ML_API_ENDPOINT', {
+            const response = await fetch('ML_API_ENDPOINT', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -68,18 +65,15 @@ const Chatbot = () => {
         }
     };
 
-    // Handle sending a new message
     const sendMessage = async () => {
         if (input.trim()) {
             setIsLoading(true);
             const userMessage = input.trim();
             
-            // Add user message to chat
             setMessages(prev => [...prev, { sender: 'user', text: userMessage }]);
             setInput('');
 
             try {
-                // Send message to first API
                 const apiResponse = await sendToAPI(userMessage);
                 
                 if (apiResponse.error) {
@@ -87,10 +81,8 @@ const Chatbot = () => {
                     return;
                 }
 
-                // Get response from ML pipeline
                 const mlResponse = await getMLResponse();
                 
-                // Add bot response to chat
                 setMessages(prev => [...prev, { sender: 'bot', text: mlResponse }]);
             } catch (error) {
                 setMessages(prev => [...prev, { 
@@ -148,7 +140,7 @@ const Chatbot = () => {
                                         }
                                     }}
                                     placeholder="Type a message..."
-                                    className="flex-1"
+                                    className="flex-1 resize-none"
                                     disabled={isLoading}
                                 />
                                 <Button 

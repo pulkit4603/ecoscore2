@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "Loid Forger",
+    "rank": 1,
+    "points": 1500,
+    "icon": "Users"
+  },
+  {
+    "id": 2,
+    "name": "Yor Forger",
+    "rank": 2,
+    "points": 1400,
+    "icon": "Users"
+  },
+  {
+    "id": 3,
+    "name": "Anya Forger",
+    "rank": 3,
+    "points": 1300,
+    "icon": "Users"
+  }
+]
