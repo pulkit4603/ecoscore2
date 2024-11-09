@@ -1,7 +1,8 @@
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import Dashboard from "@/pages/Dashboard";
 import LandingPage from "@/pages/LandingPage";
-import LogIn from "@/pages/LogIn";
+import SignIn from "@/pages/SignIn";
+import SignUp from "@/pages/SignUp";
 import AnalyticsDash from "@/pages/IndividualAnalytics";
 import ChallengesCompetitions from "./pages/Challenges";
 import Leaderboard from "./pages/Leaderboard";
@@ -13,7 +14,8 @@ const App = () => {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/login" element={<LogIn />} />
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/sign-up" element={<SignUp />} />
         <Route path="/analytics" element={<AnalyticsDash />} />
         <Route path="/challenges" element={<ChallengesCompetitions />} />
         <Route path="/leaderboard" element={<Leaderboard />} />

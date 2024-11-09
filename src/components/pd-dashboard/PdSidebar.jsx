@@ -3,7 +3,8 @@ import { useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { userName, sidebarLinks } from "@/data/data.jsx";
+import { sidebarLinks } from "@/data/data.jsx";
+import { UserButton } from "@clerk/clerk-react";
 
 export default function PdSidebar() {
   const [open, setOpen] = useState(false);
@@ -22,17 +23,10 @@ export default function PdSidebar() {
             </div>
           </div>
           <div>
-            <SidebarLink
-              link={{
-                label: userName,
-                href: "#",
-                icon: (
-                  <img
-                    src=""
-                    className="h-7 w-7 flex-shrink-0 rounded-full"
-                    alt="Avatar"
-                  />
-                ),
+            <UserButton
+              showName
+              appearance={{
+                elements: { userButtonBox: { flexDirection: "row-reverse" } },
               }}
             />
           </div>
