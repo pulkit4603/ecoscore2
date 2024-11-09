@@ -9,6 +9,7 @@ import LogIn from "@/pages/LogIn";
 // import SignInPage from "@/routes/Sign-in";
 // import SignUpPage from "@/routes/Sign-up";
 import AnalyticsDash from "@/pages/IndividualAnalytics";
+import ChallengesCompetitions from "./pages/Challenges";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/login" element={<LogIn />} />
         {/* <Route path="/contact" element={<ContactPage />} /> */}
         <Route path="/analytics" element={<AnalyticsDash />} />
+        <Route path="/challenges" element={<ChallengesCompetitions />} />
       </Routes>
     </div>
   );
