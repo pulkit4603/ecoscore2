@@ -5,8 +5,9 @@ import { userName } from "@/data/data.jsx";
 import PdSidebar from "@/components/pd-dashboard/PdSidebar";
 import { Score } from "@/components/pd-dashboard/Score";
 import { ScoreHistory } from "@/components/pd-dashboard/ScoreHistory";
-import AppliancesCard from "@/components/pd-dashboard/AppliancesCard";
+import ActivitiesCard from "@/components/pd-dashboard/ActivitiesCard";
 import Chatbot from "./Chatbot";
+import AppliancesCard from "@/components/pd-dashboard/AppliancesCard";
 
 export default function Dashboard() {
   console.log("Dashboard rendering");
@@ -19,6 +20,7 @@ export default function Dashboard() {
       <PdSidebar />
       <div className="w-full bg-inherit border-none">
         <UserWelcome />
+        <ActivitiesCard />
         <AppliancesCard />
       </div>
       <div className="h-screen border-none">
