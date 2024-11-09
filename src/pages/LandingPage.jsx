@@ -1,34 +1,16 @@
-import React from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   NavigationMenu,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import { Separator } from "@/components/ui/separator";
 import { useNavigate } from "react-router-dom";
 import { Link as ScrollLink } from "react-scroll";
 
 // Icons
-import { 
-  Leaf, 
-  BarChart2, 
-  Users, 
-  Mail, 
-  Image, 
-  MessageSquare,
-  Activity,
-  Info
-} from "lucide-react";
+import { Leaf, BarChart2, Activity, Info } from "lucide-react";
 
 const Navigation = () => {
   return (
@@ -38,20 +20,25 @@ const Navigation = () => {
           <span className="text-xl font-bold text-green-600">EcoScore</span>
           <NavigationMenu>
             <NavigationMenuList className="hidden md:flex space-x-4">
-              {["Features", "About", "Services", "Testimonials", "Team", "Contact"].map(
-                (item) => (
-                  <NavigationMenuItem key={item}>
-                    <ScrollLink
-                      to={item.toLowerCase()}
-                      smooth={true}
-                      duration={500}
-                      className={navigationMenuTriggerStyle()}
-                    >
-                      {item}
-                    </ScrollLink>
-                  </NavigationMenuItem>
-                )
-              )}
+              {[
+                "Features",
+                "About",
+                "Services",
+                "Testimonials",
+                "Team",
+                "Contact",
+              ].map((item) => (
+                <NavigationMenuItem key={item}>
+                  <ScrollLink
+                    to={item.toLowerCase()}
+                    smooth={true}
+                    duration={500}
+                    className={navigationMenuTriggerStyle()}
+                  >
+                    {item}
+                  </ScrollLink>
+                </NavigationMenuItem>
+              ))}
             </NavigationMenuList>
           </NavigationMenu>
         </div>
@@ -64,18 +51,22 @@ const Header = () => {
   const navigate = useNavigate();
 
   return (
-    <section id="header" className="min-h-screen flex flex-col justify-center items-center text-center">
+    <section
+      id="header"
+      className="min-h-screen flex flex-col justify-center items-center text-center"
+    >
       <div className="container mx-auto px-4">
         <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
           Welcome to <span className="text-green-600">EcoScore</span>
         </h1>
         <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-          Measure and improve your environmental impact with our innovative scoring system
+          Measure and improve your environmental impact with our innovative
+          scoring system
         </p>
         <Button
           size="lg"
           className="bg-green-600 hover:bg-green-700"
-          onClick={() => navigate("/login")}
+          onClick={() => navigate("/sign-in")}
         >
           Get Started
         </Button>
@@ -89,18 +80,19 @@ const Features = () => {
     {
       icon: <Leaf className="h-6 w-6" />,
       title: "Eco-Friendly Metrics",
-      description: "Track your environmental impact with our comprehensive scoring system"
+      description:
+        "Track your environmental impact with our comprehensive scoring system",
     },
     {
       icon: <BarChart2 className="h-6 w-6" />,
       title: "Real-Time Analytics",
-      description: "Monitor your progress with detailed analytics and insights"
+      description: "Monitor your progress with detailed analytics and insights",
     },
     {
       icon: <Activity className="h-6 w-6" />,
       title: "Performance Tracking",
-      description: "Set goals and track your improvement over time"
-    }
+      description: "Set goals and track your improvement over time",
+    },
   ];
 
   return (
@@ -137,9 +129,14 @@ const About = () => {
           <div>
             <h2 className="text-3xl font-bold mb-6">About EcoScore</h2>
             <p className="text-gray-600 dark:text-gray-300 mb-6">
-              EcoScore is dedicated to helping individuals and businesses understand and improve their environmental impact through our innovative scoring system.
+              EcoScore is dedicated to helping individuals and businesses
+              understand and improve their environmental impact through our
+              innovative scoring system.
             </p>
-            <Button variant="outline" className="border-green-600 text-green-600">
+            <Button
+              variant="outline"
+              className="border-green-600 text-green-600"
+            >
               Learn More
             </Button>
           </div>
@@ -160,16 +157,16 @@ const Services = () => {
   const services = [
     {
       title: "Environmental Assessment",
-      description: "Comprehensive evaluation of your environmental impact"
+      description: "Comprehensive evaluation of your environmental impact",
     },
     {
       title: "Customized Solutions",
-      description: "Tailored recommendations for improvement"
+      description: "Tailored recommendations for improvement",
     },
     {
       title: "Continuous Monitoring",
-      description: "Regular tracking and reporting of your progress"
-    }
+      description: "Regular tracking and reporting of your progress",
+    },
   ];
 
   return (
@@ -200,13 +197,13 @@ const Testimonials = () => {
     {
       text: "EcoScore has transformed how we think about environmental impact.",
       author: "Jane Smith",
-      role: "CEO, Green Tech"
+      role: "CEO, Green Tech",
     },
     {
       text: "The insights provided by EcoScore are invaluable for our business.",
       author: "John Doe",
-      role: "Sustainability Director"
-    }
+      role: "Sustainability Director",
+    },
   ];
 
   return (
@@ -270,3 +267,4 @@ const LandingPage = () => {
 };
 
 export default LandingPage;
+
