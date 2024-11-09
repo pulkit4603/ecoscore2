@@ -1,25 +1,39 @@
-import { House, MonitorSmartphone, Dumbbell } from "lucide-react";
+import { House, ChartPie, Dumbbell, Trophy, Swords } from "lucide-react";
 
 export const sidebarLinks = [
   {
     label: "Dashboard",
-    href: "#",
+    href: "/dashboard",
     icon: (
       <House className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
     ),
   },
   {
-    label: "Appliances",
-    href: "#",
+    label: "Analytics",
+    href: "/analytics",
     icon: (
-      <MonitorSmartphone className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      <ChartPie className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
     ),
   },
   {
-    label: "Activities",
-    href: "#",
+    label: "Challenges",
+    href: "/challenges",
     icon: (
       <Dumbbell className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+    ),
+  },
+  {
+    label: "Leaderboard",
+    href: "/leaderboard",
+    icon: (
+      <Trophy className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+    ),
+  },
+  {
+    label: "Join Competition",
+    href: "/join-competition",
+    icon: (
+      <Swords className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
     ),
   },
 ];
