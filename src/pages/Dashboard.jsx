@@ -1,7 +1,5 @@
-"use client";
 import { cn } from "@/lib/utils";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import { userName } from "@/data/data.jsx";
 import PdSidebar from "@/components/pd-dashboard/PdSidebar";
 import { Score } from "@/components/pd-dashboard/Score";
 import { ScoreHistory } from "@/components/pd-dashboard/ScoreHistory";
@@ -11,11 +9,10 @@ import Chatbot from "./Chatbot";
 import AppliancesCard from "@/components/pd-dashboard/AppliancesCard";
 
 export default function Dashboard() {
-  console.log("Dashboard rendering");
   return (
     <div
       className={cn(
-        "rounded-md flex flex-col md:flex-row bg-inherit dark:bg-neutral-800 w-full flex-1 mx-auto border-none border-0 overflow-hidden h-screen"
+        "rounded-md flex flex-col md:flex-row bg-inherit dark:bg-neutral-800 w-full flex-1 mx-auto border-none border-0 overflow-hidden h-screen",
       )}
     >
       <PdSidebar />
