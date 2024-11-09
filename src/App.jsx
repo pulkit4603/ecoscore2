@@ -10,6 +10,7 @@ import LogIn from "@/pages/LogIn";
 // import SignUpPage from "@/routes/Sign-up";
 import AnalyticsDash from "@/pages/IndividualAnalytics";
 import ChallengesCompetitions from "./pages/Challenges";
+import Leaderboard from "./pages/Leaderboard";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         {/* <Route path="/contact" element={<ContactPage />} /> */}
         <Route path="/analytics" element={<AnalyticsDash />} />
         <Route path="/challenges" element={<ChallengesCompetitions />} />
+        <Route path="/leaderboard" element={<Leaderboard />} />
       </Routes>
     </div>
   );
