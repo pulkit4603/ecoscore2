@@ -38,4 +38,6 @@ const LandingPage = () => {
   );
 };
 
-export default LandingPage;
+export default function LandingPage() {
+  return <div> LandingPage </div>;
+}
