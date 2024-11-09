@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { userName } from "@/data/data.jsx";
 import PdSidebar from "@/components/pd-dashboard/PdSidebar";
+import Chatbot from "./Chatbot";
 
 export default function Dashboard() {
   console.log("Dashboard rendering");
@@ -29,6 +30,7 @@ const UserWelcome = () => {
             Welcome to EcoScore: Your Personal Energy Manager
           </CardContent>
         </Card>
+        <Chatbot />
       </div>
     </div>
   );
