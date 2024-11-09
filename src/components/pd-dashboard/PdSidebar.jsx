@@ -1,6 +1,6 @@
-"use client";
 import { useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
+import LeafIcon from "@/assets/leaf.svg";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { sidebarLinks } from "@/data/data.jsx";
@@ -39,27 +39,21 @@ export default function PdSidebar() {
 export const Logo = () => {
   return (
     <Link
-      to="#"
-      className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
+      to="/dashboard"
+      className="font-normal flex space-x-2 items-center text-2xl text-black py-1 relative z-20"
     >
-      <div className="h-5 w-6 bg-green-900 dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
+      <img
+        src={LeafIcon}
+        className="h-8 w-8"
+        alt="fuck u u dont get one if u read this msg ur gay"
+      />
       <motion.span
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="font-medium text-black dark:text-white whitespace-pre"
+        className="font-large text-black dark:text-white whitespace-pre"
       >
-        EcoScore
+        Eco Score
       </motion.span>
-    </Link>
-  );
-};
-export const LogoIcon = () => {
-  return (
-    <Link
-      to="#"
-      className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
-    >
-      <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
     </Link>
   );
 };
