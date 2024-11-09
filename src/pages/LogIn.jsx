@@ -3,7 +3,12 @@ import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-reac
 export default function LogIn() {
   return (
     <header>
-      <SignedOut>
+      <SignedOut
+        routing="path"
+        path="/sign-in"
+        signUpUrl="/sign-up"
+        transferable={true}
+      >
         <SignInButton />
       </SignedOut>
       <SignedIn>
