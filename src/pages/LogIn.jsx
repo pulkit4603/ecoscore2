@@ -1,14 +1,6 @@
-import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react'
+import { SignIn } from "@clerk/clerk-react";
 
 export default function LogIn() {
-  return (
-    <header>
-      <SignedOut>
-        <SignInButton />
-      </SignedOut>
-      <SignedIn>
-        <UserButton />
-      </SignedIn>
-    </header>
-  )
+  return <SignIn redirectUrl="/dashboard" />;
 }
+
