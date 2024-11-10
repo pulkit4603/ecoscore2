@@ -1,8 +1,20 @@
 import React, { useState } from "react";
 import { Card, CardTitle } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Tv, Laptop, Microwave, ShowerHead } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Tv, Laptop, Microwave, ShowerHead, Plus } from "lucide-react";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
 const activities = [
   {
@@ -12,8 +24,8 @@ const activities = [
     appliances: ["Television", "Sound System"],
     energyData: [
       { name: "Television", usage: 150 },
-      { name: "Sound System", usage: 50 }
-    ]
+      { name: "Sound System", usage: 50 },
+    ],
   },
   {
     name: "Working",
@@ -23,8 +35,8 @@ const activities = [
     energyData: [
       { name: "Laptop", usage: 65 },
       { name: "Desk Lamp", usage: 40 },
-      { name: "Fan", usage: 55 }
-    ]
+      { name: "Fan", usage: 55 },
+    ],
   },
   {
     name: "Cooking",
@@ -34,24 +46,25 @@ const activities = [
     energyData: [
       { name: "Microwave", usage: 1100 },
       { name: "Electric Stove", usage: 2000 },
-      { name: "Hood", usage: 150 }
-    ]
+      { name: "Hood", usage: 150 },
+    ],
   },
   {
     name: "Bathing",
     icon: <ShowerHead className="w-6 h-6 text-gray-600" />,
     hours: 0.5,
     appliances: ["Geyser"],
-    energyData: [
-      { name: "Geyser", usage: 3000 }
-    ]
-  }
+    energyData: [{ name: "Geyser", usage: 3000 }],
+  },
 ];
 
 const ActivityDialog = ({ activity, open, onClose }) => {
   if (!activity) return null;
 
-  const totalUsage = activity.energyData.reduce((sum, item) => sum + item.usage, 0);
+  const totalUsage = activity.energyData.reduce(
+    (sum, item) => sum + item.usage,
+    0
+  );
   const avgUsage = (totalUsage / activity.energyData.length).toFixed(1);
 
   return (
@@ -68,22 +81,36 @@ const ActivityDialog = ({ activity, open, onClose }) => {
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={activity.energyData}>
                 <XAxis dataKey="name" />
-                <YAxis label={{ value: 'Energy Usage (Watts)', angle: -90, position: 'insideLeft' }} />
+                <YAxis
+                  label={{
+                    value: "Energy Usage (Watts)",
+                    angle: -90,
+                    position: "insideLeft",
+                  }}
+                />
                 <Tooltip />
                 <Bar dataKey="usage" fill="#22c55e" />
               </BarChart>
             </ResponsiveContainer>
           </div>
-          
+
           <div className="space-y-4">
             <div className="text-sm space-y-2">
-              <p className="font-medium">Activity Duration: {activity.hours} hours</p>
-              <p className="font-medium">Total Power Draw: {totalUsage} watts</p>
-              <p className="font-medium">Average Appliance Usage: {avgUsage} watts</p>
+              <p className="font-medium">
+                Activity Duration: {activity.hours} hours
+              </p>
+              <p className="font-medium">
+                Total Power Draw: {totalUsage} watts
+              </p>
+              <p className="font-medium">
+                Average Appliance Usage: {avgUsage} watts
+              </p>
             </div>
-            
+
             <div className="bg-green-50 p-4 rounded-lg">
-              <h4 className="font-semibold text-sm text-green-800 mb-2">Energy Saving Tips:</h4>
+              <h4 className="font-semibold text-sm text-green-800 mb-2">
+                Energy Saving Tips:
+              </h4>
               <ul className="text-sm text-green-700 list-disc list-inside space-y-1">
                 {activity.name === "Watching TV" && (
                   <>
@@ -132,7 +159,14 @@ export default function ActivitiesCard() {
   return (
     <div className="w-full h-[35%] bg-inherit p-2">
       <Card className="border">
-        <CardTitle className="flex p-4">Activities</CardTitle>
+        <CardTitle className="flex p-4">
+          Activities
+          {
+            <div className="mx-2 rounded-full bg-black hover:cursor-pointer hover:shadow-lg">
+              <Plus className="text-white font-bold" />
+            </div>
+          }
+        </CardTitle>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4">
           {activities.map((activity, index) => (
             <div
@@ -153,8 +187,8 @@ export default function ActivitiesCard() {
           ))}
         </div>
       </Card>
-      
-      <ActivityDialog 
+
+      <ActivityDialog
         activity={selectedActivity}
         open={!!selectedActivity}
         onClose={() => setSelectedActivity(null)}

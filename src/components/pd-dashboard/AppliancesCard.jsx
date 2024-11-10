@@ -1,15 +1,28 @@
 import React, { useState, useEffect } from "react";
-import { Tv, Droplet, Wind } from "lucide-react";
+import { Tv, Droplet, Wind, Plus } from "lucide-react";
 import { Card, CardTitle } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  Legend,
+} from "recharts";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import applianceData from "@/data/appliance.json";
 
 // Simulated API function
 const fetchApplianceData = async (applianceId) => {
   try {
-    const response = await fetch('/api/appliances/' + applianceId);
+    const response = await fetch("/api/appliances/" + applianceId);
     const data = await response.json();
     return data;
   } catch (error) {
@@ -29,12 +42,12 @@ const ApplianceDialog = ({ appliance, open, onClose }) => {
       const fetchData = async () => {
         setIsLoading(true);
         try {
-          const applianceId = appliance.name.toLowerCase().replace(/\s+/g, '');
+          const applianceId = appliance.name.toLowerCase().replace(/\s+/g, "");
           const data = await fetchApplianceData(applianceId);
           setTimeSeriesData(data);
           setError(null);
         } catch (err) {
-          setError('Failed to load appliance data');
+          setError("Failed to load appliance data");
         } finally {
           setIsLoading(false);
         }
@@ -68,19 +81,23 @@ const ApplianceDialog = ({ appliance, open, onClose }) => {
               <div className="h-[400px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={timeSeriesData?.timeSeriesData}>
-                    <XAxis 
+                    <XAxis
                       dataKey="timestamp"
-                      label={{ value: 'Time of Day', position: 'bottom' }}
+                      label={{ value: "Time of Day", position: "bottom" }}
                     />
-                    <YAxis 
-                      label={{ value: 'Power (Watts)', angle: -90, position: 'insideLeft' }}
+                    <YAxis
+                      label={{
+                        value: "Power (Watts)",
+                        angle: -90,
+                        position: "insideLeft",
+                      }}
                     />
                     <Tooltip />
                     <Legend />
-                    <Line 
-                      type="monotone" 
-                      dataKey="power" 
-                      stroke="#22c55e" 
+                    <Line
+                      type="monotone"
+                      dataKey="power"
+                      stroke="#22c55e"
                       strokeWidth={2}
                       dot={{ r: 4 }}
                       name="Power Consumption"
@@ -91,7 +108,9 @@ const ApplianceDialog = ({ appliance, open, onClose }) => {
 
               <div className="space-y-4">
                 <div className="bg-green-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-green-800 mb-2">Usage Analysis</h4>
+                  <h4 className="font-semibold text-green-800 mb-2">
+                    Usage Analysis
+                  </h4>
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     <div>
                       <p className="font-medium text-gray-600">Daily Usage:</p>
@@ -105,7 +124,9 @@ const ApplianceDialog = ({ appliance, open, onClose }) => {
                 </div>
 
                 <div className="bg-blue-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-blue-800 mb-2">Energy Saving Tip</h4>
+                  <h4 className="font-semibold text-blue-800 mb-2">
+                    Energy Saving Tip
+                  </h4>
                   <p className="text-blue-700">{appliance.tip}</p>
                 </div>
               </div>
@@ -150,7 +171,14 @@ export default function AppliancesCard() {
   return (
     <div className="w-full h-[35%] bg-inherit p-2">
       <Card className="">
-        <CardTitle className="flex p-4">Appliances</CardTitle>
+        <CardTitle className="flex p-4">
+          Appliances{" "}
+          {
+            <div className="mx-2 rounded-full bg-black hover:cursor-pointer hover:shadow-lg">
+              <Plus className="text-white font-bold" />
+            </div>
+          }
+        </CardTitle>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 p-4">
           {appliances.map((appliance, index) => (
             <div
