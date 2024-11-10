@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea"; // Import the Textarea component
 import PdSidebar from "@/components/pd-dashboard/PdSidebar";
 
 const JoinCompetitionForm = () => {
@@ -48,12 +49,12 @@ const JoinCompetitionForm = () => {
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                     Full Name
                   </label>
-                  <input
-                    type="text"
+                  <Textarea
                     name="fullname"
                     value={formData.fullname}
+                    rows={1}
                     onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50"
+                    className="mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50"
                     required
                   />
                 </div>
@@ -61,8 +62,7 @@ const JoinCompetitionForm = () => {
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                     Locality
                   </label>
-                  <input
-                    type="text"
+                  <Textarea
                     name="locality"
                     value={formData.locality}
                     onChange={handleChange}

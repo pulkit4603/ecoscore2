@@ -11,11 +11,13 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Trophy, Zap, Users, Timer, Award, Wind, CloudRain } from "lucide-react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate for routing
 import PdSidebar from "@/components/pd-dashboard/PdSidebar";
 
 const ChallengesCompetitions = () => {
   const [activeTab, setActiveTab] = useState("challenges");
   const [activeChallenge, setActiveChallenge] = useState(null);
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const challenges = [
     {
@@ -206,8 +208,8 @@ const ChallengesCompetitions = () => {
                       </div>
                     </CardContent>
                     <CardFooter>
-                      <Button className="w-full bg-green-600 hover:bg-green-700">
-                        Join Competition
+                      <Button className="w-full bg-green-600 hover:bg-green-700" onClick={() => navigate("/join-competition")}>
+                        Join Competition                  
                       </Button>
                     </CardFooter>
                   </Card>
