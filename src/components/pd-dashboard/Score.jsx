@@ -18,36 +18,46 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 const chartData = [
-  { day: "chrome", EcoScore: 12, fill: "var(--color-chrome)" },
-  { day: "safari", EcoScore: 20, fill: "var(--color-safari)" },
-  { day: "firefox", EcoScore: 2, fill: "var(--color-firefox)" },
-  { day: "edge", EcoScore: 10, fill: "var(--color-edge)" },
-  { day: "other", EcoScore: 43, fill: "var(--color-other)" },
+  { day: "Monday", EcoScore: 12, fill: "var(--color-Monday)" },
+  { day: "Tuesday", EcoScore: 20, fill: "var(--color-Tuesday)" },
+  { day: "Wednesday", EcoScore: 2, fill: "var(--color-Wednesday)" },
+  { day: "Thursday", EcoScore: 10, fill: "var(--color-Thursday)" },
+  { day: "Friday", EcoScore: 33, fill: "var(--color-Friday)" },
+  { day: "Saturday", EcoScore: 7, fill: "var(--color-Saturday)" },
+  { day: "Sunday", EcoScore: 3, fill: "var(--color-Saturday)" },
 ];
 
 const chartConfig = {
   EcoScore: {
     label: "EcoScore",
   },
-  chrome: {
-    label: "Chrome",
+  Monday: {
+    label: "Monday",
     color: "hsl(var(--chart-1))",
   },
-  safari: {
-    label: "Safari",
+  Tuesday: {
+    label: "Tuesday",
     color: "hsl(var(--chart-2))",
   },
-  firefox: {
-    label: "Firefox",
+  Wednesday: {
+    label: "Wednesday",
     color: "hsl(var(--chart-3))",
   },
-  edge: {
-    label: "Edge",
+  Thursday: {
+    label: "Thursday",
     color: "hsl(var(--chart-4))",
   },
-  other: {
-    label: "Other",
+  Friday: {
+    label: "Friday",
     color: "hsl(var(--chart-5))",
+  },
+  Saturday: {
+    label: "Saturday",
+    color: "hsl(var(--chart-6))",
+  },
+  Sunday: {
+    label: "Sunday",
+    color: "hsl(var(--chart-7))",
   },
 };
 
