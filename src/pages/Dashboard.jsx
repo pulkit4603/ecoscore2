@@ -5,8 +5,8 @@ import { Score } from "@/components/pd-dashboard/Score";
 import { ScoreHistory } from "@/components/pd-dashboard/ScoreHistory";
 import { useUser } from "@clerk/clerk-react";
 import ActivitiesCard from "@/components/pd-dashboard/ActivitiesCard";
-import Chatbot from "./Chatbot";
 import AppliancesCard from "@/components/pd-dashboard/AppliancesCard";
+import Chatbot from "./Chatbot";
 
 export default function Dashboard() {
   return (
