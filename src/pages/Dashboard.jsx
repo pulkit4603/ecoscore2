@@ -7,6 +7,7 @@ import { useUser } from "@clerk/clerk-react";
 import ActivitiesCard from "@/components/pd-dashboard/ActivitiesCard";
 import AppliancesCard from "@/components/pd-dashboard/AppliancesCard";
 import Chatbot from "./Chatbot";
+import NotificationComponent from "./Notifications";
 
 export default function Dashboard() {
   return (
@@ -25,6 +26,7 @@ export default function Dashboard() {
         <Score />
         <ScoreHistory />
       </div>
+      <NotificationComponent />
     </div>
   );
 }

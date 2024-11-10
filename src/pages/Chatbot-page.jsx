@@ -11,6 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Loader2 } from 'lucide-react';
+import { useUser } from "@clerk/clerk-react";
 
 const chatEvents = {
     listeners: new Set(),
@@ -29,14 +30,19 @@ export const openChat = () => {
 
 const ChatbotPage = () => {
     const navigate = useNavigate();
+    const { user, isLoaded } = useUser();
+    let userName = isLoaded ? user.fullName : "User";
+    const userFirstName = isLoaded ? user.fullName.split(' ')[0] : "User";
+    userName = "Mohan Kumar";
+
     const [messages, setMessages] = useState([
-        { sender: 'bot', text: 'Hello! How can I assist you today?' }
-    ]);
+        { sender: 'bot', text: `Hello, ${userFirstName}! How can I assist you today?` }
+]);
+
+    
     const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
-
-    const userName = "Mohan Kumar";
 
     useEffect(() => {
         const unsubscribe = chatEvents.subscribe(() => {
