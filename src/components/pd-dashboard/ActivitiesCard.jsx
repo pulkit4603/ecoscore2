@@ -15,6 +15,9 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import usePostData from "@/hooks/usePostData";
+import { url } from "@/data/api";
+import { Button } from "../ui/button";
 
 const activities = [
   {
@@ -149,8 +152,83 @@ const ActivityDialog = ({ activity, open, onClose }) => {
   );
 };
 
+const AddActivityDialog = ({ open, onClose, onSubmit }) => {
+  const [formData, setFormData] = useState({
+    name: "",
+    type: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("Submitting form data:", formData);
+    await onSubmit(formData);
+    console.log("Request sent");
+    onClose();
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={onClose}>
+      <DialogContent className="sm:max-w-[600px]">
+        <DialogHeader>
+          <DialogTitle>Add New Activity</DialogTitle>
+        </DialogHeader>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              Activity Name
+            </label>
+            <input
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="w-full p-2 border rounded"
+              placeholder="Enter activity name"
+              required
+            />
+          </div>
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              Activity Type
+            </label>
+            <input
+              name="type"
+              value={formData.type}
+              onChange={handleChange}
+              className="w-full p-2 border rounded"
+              placeholder="Enter activity type"
+              required
+            />
+          </div>
+          <Button
+            type="submit"
+            className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-medium transition-all duration-200 transform hover:scale-[1.02]"
+          >
+            Add Activity
+          </Button>
+        </form>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
 export default function ActivitiesCard() {
   const [selectedActivity, setSelectedActivity] = useState(null);
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const { data, loading, error, postData } = usePostData(url + "/activities");
+
+  const handleAddActivity = async (newActivity) => {
+    console.log("Submitting new activity data:", newActivity);
+    await postData(newActivity);
+    console.log("New activity added");
+  };
 
   const handleActivityClick = (activity) => {
     setSelectedActivity(activity);
@@ -161,11 +239,12 @@ export default function ActivitiesCard() {
       <Card className="border">
         <CardTitle className="flex p-4">
           Activities
-          {
-            <div className="mx-2 rounded-full bg-black hover:cursor-pointer hover:shadow-lg">
-              <Plus className="text-white font-bold" />
-            </div>
-          }
+          <div
+            className="mx-2 rounded-full bg-black hover:cursor-pointer hover:shadow-lg"
+            onClick={() => setIsAddDialogOpen(true)}
+          >
+            <Plus className="text-white font-bold" />
+          </div>
         </CardTitle>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4">
           {activities.map((activity, index) => (
@@ -192,6 +271,12 @@ export default function ActivitiesCard() {
         activity={selectedActivity}
         open={!!selectedActivity}
         onClose={() => setSelectedActivity(null)}
+      />
+
+      <AddActivityDialog
+        open={isAddDialogOpen}
+        onClose={() => setIsAddDialogOpen(false)}
+        onSubmit={handleAddActivity}
       />
     </div>
   );

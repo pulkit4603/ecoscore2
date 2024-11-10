@@ -17,16 +17,17 @@ import {
   Legend,
 } from "recharts";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import usePostData from "@/hooks/usePostData";
+import { url } from "@/data/api";
 import applianceData from "@/data/appliance.json";
+import { Button } from "../ui/button";
 
-// Simulated API function
 const fetchApplianceData = async (applianceId) => {
   try {
     const response = await fetch("/api/appliances/" + applianceId);
     const data = await response.json();
     return data;
   } catch (error) {
-    // For demo, return dummy data
     const dummyData = applianceData;
     return dummyData[applianceId];
   }
@@ -138,8 +139,90 @@ const ApplianceDialog = ({ appliance, open, onClose }) => {
   );
 };
 
+const AddApplianceDialog = ({ open, onClose, onSubmit }) => {
+  const [formData, setFormData] = useState({
+    name: "",
+    hours: "",
+    consumption: "",
+    tip: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await onSubmit(formData);
+    onClose();
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={onClose}>
+      <DialogContent className="sm:max-w-[600px]">
+        <DialogHeader>
+          <DialogTitle>Add New Appliance</DialogTitle>
+        </DialogHeader>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              Appliance Name
+            </label>
+            <input
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="w-full p-2 border rounded"
+              placeholder="Enter appliance name"
+              required
+            />
+          </div>
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              Daily Usage (hours)
+            </label>
+            <input
+              name="hours"
+              value={formData.hours}
+              onChange={handleChange}
+              className="w-full p-2 border rounded"
+              placeholder="Enter daily usage in hours"
+              required
+            />
+          </div>
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              Power Consumption (watts)
+            </label>
+            <input
+              name="consumption"
+              value={formData.consumption}
+              onChange={handleChange}
+              className="w-full p-2 border rounded"
+              placeholder="Enter power consumption in watts"
+              required
+            />
+          </div>
+          <Button
+            type="submit"
+            className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-medium transition-all duration-200 transform hover:scale-[1.02]"
+          >
+            Add Appliance
+          </Button>
+        </form>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
 export default function AppliancesCard() {
   const [selectedAppliance, setSelectedAppliance] = useState(null);
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const { data, loading, error, postData } = usePostData(url + "/appliances");
 
   const appliances = [
     {
@@ -159,7 +242,7 @@ export default function AppliancesCard() {
       consumption: "2000-3000 watts",
     },
     {
-      name: "AirConditioner",
+      name: "Air Conditioner",
       icon: <Wind className="w-6 h-6 text-gray-600" />,
       hours: 6,
       appliances: ["Split AC", "Window AC"],
@@ -168,16 +251,23 @@ export default function AppliancesCard() {
     },
   ];
 
+  const handleAddAppliance = async (newAppliance) => {
+    console.log("Submitting new appliance data:", newAppliance);
+    await postData(newAppliance);
+    console.log("New appliance added");
+  };
+
   return (
     <div className="w-full h-[35%] bg-inherit p-2">
       <Card className="">
         <CardTitle className="flex p-4">
           Appliances{" "}
-          {
-            <div className="mx-2 rounded-full bg-black hover:cursor-pointer hover:shadow-lg">
-              <Plus className="text-white font-bold" />
-            </div>
-          }
+          <div
+            className="mx-2 rounded-full bg-black hover:cursor-pointer hover:shadow-lg"
+            onClick={() => setIsAddDialogOpen(true)}
+          >
+            <Plus className="text-white font-bold" />
+          </div>
         </CardTitle>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 p-4">
           {appliances.map((appliance, index) => (
@@ -209,6 +299,12 @@ export default function AppliancesCard() {
         appliance={selectedAppliance}
         open={!!selectedAppliance}
         onClose={() => setSelectedAppliance(null)}
+      />
+
+      <AddApplianceDialog
+        open={isAddDialogOpen}
+        onClose={() => setIsAddDialogOpen(false)}
+        onSubmit={handleAddAppliance}
       />
     </div>
   );
