@@ -1,3 +1,4 @@
+import { IconRobot } from "@tabler/icons-react";
 import { House, ChartPie, Dumbbell, Trophy, Swords } from "lucide-react";
 
 export const sidebarLinks = [
@@ -30,10 +31,10 @@ export const sidebarLinks = [
     ),
   },
   {
-    label: "Join Competition",
-    href: "/join-competition",
+    label: "Chat With Eco",
+    href: "/chatbot",
     icon: (
-      <Swords className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      <IconRobot className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
     ),
   },
 ];

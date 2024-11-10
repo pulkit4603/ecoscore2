@@ -7,6 +7,7 @@ import AnalyticsDash from "@/pages/Analytics";
 import ChallengesCompetitions from "./pages/Challenges";
 import Leaderboard from "./pages/Leaderboard";
 import JoinCompetitionForm from "./pages/JoinCompetitionForm";
+import ChatbotApp from "./pages/Chatbot-page";
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="/challenges" element={<ChallengesCompetitions />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
         <Route path="/join-competition" element={<JoinCompetitionForm />} />
+        <Route path="/chatbot" element={<ChatbotApp />} />
       </Routes>
     </Router>
   );
