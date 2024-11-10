@@ -69,7 +69,7 @@ const AnalyticsDash = () => {
             </Card>
           </Grid>
           <Grid item xs={6} sm={3} md={3}>
-            <Card className="bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg">
+            <Card className="bg-gradient-to-r h-full from-green-500 to-green-600 text-white shadow-lg">
               <CardContent className="p-3">
                 <h3 className="text-sm font-medium opacity-90">Summary</h3>
                 <p className="text-xs mt-1 opacity-90">
@@ -81,7 +81,7 @@ const AnalyticsDash = () => {
 
           {/* Charts */}
           <Grid item xs={12} md={8}>
-            <Card className="shadow-md">
+            <Card className="shadow-md h-80">
               <CardContent>
                 <h2 className="text-xl font-semibold text-gray-800 mb-6">
                   Energy Usage
@@ -101,9 +101,9 @@ const AnalyticsDash = () => {
           </Grid>
 
           <Grid item xs={12} md={4}>
-            <Card className="shadow-md">
+            <Card className="shadow-md h-80">
               <CardContent>
-                <h2 className="text-xl font-semibold text-gray-800 mb-6">
+                <h2 className="text-xl font-semibold text-gray-800 mb-2">
                   Daily Energy Cost
                 </h2>
                 <ResponsiveContainer width="100%" height={250}>
@@ -124,7 +124,7 @@ const AnalyticsDash = () => {
                     <Tooltip />
                   </PieChart>
                 </ResponsiveContainer>
-                <p className="text-center mt-4 text-lg font-medium text-gray-700">
+                <p className="text-center mt-2 text-lg font-medium text-gray-700">
                   Total: 336 THB
                 </p>
               </CardContent>

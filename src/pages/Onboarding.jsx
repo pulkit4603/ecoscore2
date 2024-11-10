@@ -1,14 +1,15 @@
 import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Leaf } from "lucide-react";
+import usePostData from "@/hooks/usePostData";
+import { url } from "@/data/api";
 
 const Onboarding = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const competitionName = location.state?.competitionName || "Competition";
+  const { data, loading, error, postData } = usePostData(url + "/user");
 
   const [formData, setFormData] = useState({
     firstname: "",
@@ -24,9 +25,14 @@ const Onboarding = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    console.log("Submitting form data:", formData);
+    await postData({
+      firstname: formData.firstname,
+      lastname: formData.lastname,
+    });
+    console.log("Request sent, navigating to dashboard");
     navigate("/dashboard");
   };
 
@@ -104,9 +110,13 @@ const Onboarding = () => {
             <Button
               type="submit"
               className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-medium transition-all duration-200 transform hover:scale-[1.02]"
+              disabled={loading}
             >
-              Get Started
+              {loading ? "Submitting..." : "Get Started"}
             </Button>
+            {error && (
+              <p className="text-red-500 text-center mt-4">{error.message}</p>
+            )}
           </form>
         </CardContent>
       </Card>
