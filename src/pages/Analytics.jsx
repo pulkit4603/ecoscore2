@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { Card, CardContent, Grid } from "@mui/material";
+import { Button } from "@/components/ui/button";
 import PdSidebar from "../components/pd-dashboard/PdSidebar";
 import {
   PieChart,
@@ -15,9 +17,21 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import { energyData, carbonData, pieData } from "@/data/analytics-data";
+import {
+  energyData,
+  carbonData,
+  pieData,
+  carbonDataAll,
+} from "@/data/analytics-data";
 
 const AnalyticsDash = () => {
+  const [timeRange, setTimeRange] = useState("years");
+  const [activeData, setActiveData] = useState(carbonDataAll.years);
+
+  const handleTimeRangeChange = (range) => {
+    setTimeRange(range);
+    setActiveData(carbonDataAll[range]);
+  };
   return (
     <div className="flex h-screen overflow-hidden">
       <PdSidebar />
@@ -120,16 +134,70 @@ const AnalyticsDash = () => {
           <Grid item xs={12}>
             <Card className="shadow-md">
               <CardContent>
-                <h2 className="text-xl font-semibold text-gray-800 mb-6">
-                  Carbon Footprint CO2
-                </h2>
-                <ResponsiveContainer width="100%" height={200}>
-                  <LineChart data={carbonData}>
+                <div className="flex justify-between items-center mb-6">
+                  <h2 className="text-xl font-semibold text-gray-800">
+                    Carbon Footprint CO2
+                  </h2>
+                  <div className="flex gap-2">
+                    <Button
+                      variant={timeRange === "years" ? "default" : "outline"}
+                      onClick={() => handleTimeRangeChange("years")}
+                      className="text-sm"
+                    >
+                      All Years
+                    </Button>
+                    <Button
+                      variant={timeRange === "months" ? "default" : "outline"}
+                      onClick={() => handleTimeRangeChange("months")}
+                      className="text-sm"
+                    >
+                      Past Year
+                    </Button>
+                    <Button
+                      variant={timeRange === "weeks" ? "default" : "outline"}
+                      onClick={() => handleTimeRangeChange("weeks")}
+                      className="text-sm"
+                    >
+                      Past Month
+                    </Button>
+                  </div>
+                </div>
+                <ResponsiveContainer width="100%" height={300}>
+                  <LineChart data={activeData}>
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="year" />
-                    <YAxis />
-                    <Tooltip />
-                    <Line type="monotone" dataKey="co2" stroke="#4CAF50" />
+                    <XAxis
+                      dataKey={
+                        timeRange === "years"
+                          ? "year"
+                          : timeRange === "months"
+                          ? "month"
+                          : "week"
+                      }
+                      tick={{ fill: "#6B7280" }}
+                    />
+                    <YAxis
+                      tick={{ fill: "#6B7280" }}
+                      label={{
+                        value: "CO2 Emissions (tons)",
+                        angle: -90,
+                        position: "insideLeft",
+                        fill: "#6B7280",
+                      }}
+                    />
+                    <Tooltip
+                      contentStyle={{
+                        backgroundColor: "#fff",
+                        border: "1px solid #e5e7eb",
+                      }}
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="co2"
+                      stroke="#4CAF50"
+                      strokeWidth={2}
+                      dot={{ fill: "#4CAF50", r: 4 }}
+                      activeDot={{ r: 6, fill: "#4CAF50" }}
+                    />
                   </LineChart>
                 </ResponsiveContainer>
               </CardContent>
