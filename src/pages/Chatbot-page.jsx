@@ -12,7 +12,6 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Loader2 } from 'lucide-react';
 
-// Create a simple event system for global state
 const chatEvents = {
     listeners: new Set(),
     subscribe(listener) {
@@ -24,7 +23,6 @@ const chatEvents = {
     }
 };
 
-// Function to open chat from anywhere in the app
 export const openChat = () => {
     chatEvents.emit();
 };
@@ -38,9 +36,8 @@ const ChatbotPage = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
 
-    const userName = "Mohan Kumar"; // Replace with the actual user's name
+    const userName = "Mohan Kumar";
 
-    // Listen for global open events
     useEffect(() => {
         const unsubscribe = chatEvents.subscribe(() => {
             setIsOpen(true);
@@ -49,50 +46,65 @@ const ChatbotPage = () => {
     }, []);
 
     const sendToAPI = async (userMessage) => {
-        try {
-            const response = await fetch('http://127.0.0.1:5000/chat', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    user_name: userName,
-                    query: userMessage,
-                    timestamp: new Date().toISOString(),
-                    sessionId: Math.random().toString(36).substring(7), 
-                })
-            });
+        const response = await fetch('http://127.0.0.1:5000/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                user_name: userName,
+                query: userMessage,
+                timestamp: new Date().toISOString(),
+                sessionId: Math.random().toString(36).substring(7),
+            })
+        });
 
-            if (!response.ok) {
-                throw new Error('API request failed');
-            }
-
-            const data = await response.json();
-            return data;
-        } catch (error) {
-            console.error('Error sending message to API:', error);
-            return { error: 'Failed to process your message. Please try again.' };
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
+
+        const data = await response.json();
+        return data;
     };
 
-    const getMLResponse = async () => {
-        try {
-            const response = await fetch('http://127.0.0.1:5000/chat', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            });
+    const sendMessage = async () => {
+        if (!input.trim()) return;
 
-            if (!response.ok) {
-                throw new Error('ML API request failed');
+        try {
+            setIsLoading(true);
+            const userMessage = input.trim();
+            
+            // Add user message to chat
+            setMessages(prev => [...prev, { sender: 'user', text: userMessage }]);
+            setInput('');
+
+            // Send message to API and get response
+            const apiResponse = await sendToAPI(userMessage);
+            
+            // First add the message if it exists
+            if (apiResponse.message) {
+                setMessages(prev => [...prev, { 
+                    sender: 'bot', 
+                    text: apiResponse.message
+                }]);
+            }
+            
+            // Then add the reply if it exists
+            if (apiResponse.reply) {
+                setMessages(prev => [...prev, { 
+                    sender: 'bot', 
+                    text: apiResponse.reply
+                }]);
             }
 
-            const data = await response.json();
-            return data.response || data.message;
         } catch (error) {
-            console.error('Error getting ML response:', error);
-            return 'Sorry, I encountered an error processing your request.';
+            console.error('Error in chat:', error);
+            setMessages(prev => [...prev, { 
+                sender: 'bot', 
+                text: 'Sorry, I encountered an error. Please try again.' 
+            }]);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -103,43 +115,22 @@ const ChatbotPage = () => {
         }
     };
 
-    const sendMessage = async () => {
-        if (input.trim()) {
-            setIsLoading(true);
-            const userMessage = input.trim();
-            
-            setMessages(prev => [...prev, { sender: 'user', text: userMessage }]);
-            setInput('');
-
-            try {
-                const apiResponse = await sendToAPI(userMessage);
-                
-                if (apiResponse.error) {
-                    setMessages(prev => [...prev, { sender: 'bot', text: apiResponse.error }]);
-                    return;
-                }
-
-                const mlResponse = await getMLResponse();
-                
-                setMessages(prev => [...prev, { sender: 'bot', text: mlResponse }]);
-            } catch (error) {
-                setMessages(prev => [...prev, { 
-                    sender: 'bot', 
-                    text: 'Sorry, I encountered an error. Please try again.' 
-                }]);
-            } finally {
-                setIsLoading(false);
-            }
-        }
-    };
-
-    // Scroll to bottom whenever messages change
     useEffect(() => {
         const messageContainer = document.querySelector('.message-container');
         if (messageContainer) {
             messageContainer.scrollTop = messageContainer.scrollHeight;
         }
     }, [messages]);
+
+    const formatBotMessage = (text) => {
+        // Convert markdown-style formatting to JSX
+        return text.split('\n').map((line, index) => (
+            <React.Fragment key={index}>
+                {line}
+                <br />
+            </React.Fragment>
+        ));
+    };
 
     return (
         <div className="flex items-center justify-center min-h-screen">
@@ -168,9 +159,9 @@ const ChatbotPage = () => {
                                             msg.sender === 'user' 
                                                 ? 'bg-blue-500 text-white' 
                                                 : 'bg-gray-100 text-gray-900'
-                                        }`}
+                                        } whitespace-pre-wrap`}
                                     >
-                                        {msg.text}
+                                        {msg.sender === 'bot' ? formatBotMessage(msg.text) : msg.text}
                                     </div>
                                 </div>
                             ))}
