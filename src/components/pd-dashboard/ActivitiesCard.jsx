@@ -1,56 +1,144 @@
-// import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import React, { useState } from "react";
+import { Card, CardTitle } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Tv, Laptop, Microwave, ShowerHead } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
-// export default function AppliancesCard() {
-//   return (
-//     <div className="w-full h-[35%] border-none bg-red-100 p-2">
-//       <Card className="border-none">
-//         <CardTitle className="flex">Activities</CardTitle>
-//         <div></div>
-//       </Card>
-//     </div>
-//   );
-// }
+const activities = [
+  {
+    name: "Watching TV",
+    icon: <Tv className="w-6 h-6 text-gray-600" />,
+    hours: 2.5,
+    appliances: ["Television", "Sound System"],
+    energyData: [
+      { name: "Television", usage: 150 },
+      { name: "Sound System", usage: 50 }
+    ]
+  },
+  {
+    name: "Working",
+    icon: <Laptop className="w-6 h-6 text-gray-600" />,
+    hours: 8,
+    appliances: ["Laptop", "Desk Lamp", "Fan"],
+    energyData: [
+      { name: "Laptop", usage: 65 },
+      { name: "Desk Lamp", usage: 40 },
+      { name: "Fan", usage: 55 }
+    ]
+  },
+  {
+    name: "Cooking",
+    icon: <Microwave className="w-6 h-6 text-gray-600" />,
+    hours: 1.5,
+    appliances: ["Microwave", "Electric Stove", "Hood"],
+    energyData: [
+      { name: "Microwave", usage: 1100 },
+      { name: "Electric Stove", usage: 2000 },
+      { name: "Hood", usage: 150 }
+    ]
+  },
+  {
+    name: "Bathing",
+    icon: <ShowerHead className="w-6 h-6 text-gray-600" />,
+    hours: 0.5,
+    appliances: ["Geyser"],
+    energyData: [
+      { name: "Geyser", usage: 3000 }
+    ]
+  }
+];
 
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import { Tv, Coffee, Laptop, Microwave, Fan, ShowerHead } from "lucide-react";
+const ActivityDialog = ({ activity, open, onClose }) => {
+  if (!activity) return null;
+
+  const totalUsage = activity.energyData.reduce((sum, item) => sum + item.usage, 0);
+  const avgUsage = (totalUsage / activity.energyData.length).toFixed(1);
+
+  return (
+    <Dialog open={open} onOpenChange={onClose}>
+      <DialogContent className="sm:max-w-[600px]">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            {activity.icon}
+            <span>{activity.name} Energy Usage</span>
+          </DialogTitle>
+        </DialogHeader>
+        <div className="space-y-6">
+          <div className="h-[300px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={activity.energyData}>
+                <XAxis dataKey="name" />
+                <YAxis label={{ value: 'Energy Usage (Watts)', angle: -90, position: 'insideLeft' }} />
+                <Tooltip />
+                <Bar dataKey="usage" fill="#22c55e" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+          
+          <div className="space-y-4">
+            <div className="text-sm space-y-2">
+              <p className="font-medium">Activity Duration: {activity.hours} hours</p>
+              <p className="font-medium">Total Power Draw: {totalUsage} watts</p>
+              <p className="font-medium">Average Appliance Usage: {avgUsage} watts</p>
+            </div>
+            
+            <div className="bg-green-50 p-4 rounded-lg">
+              <h4 className="font-semibold text-sm text-green-800 mb-2">Energy Saving Tips:</h4>
+              <ul className="text-sm text-green-700 list-disc list-inside space-y-1">
+                {activity.name === "Watching TV" && (
+                  <>
+                    <li>Adjust TV brightness to room lighting</li>
+                    <li>Use TV's built-in speakers when possible</li>
+                    <li>Enable power-saving mode</li>
+                  </>
+                )}
+                {activity.name === "Working" && (
+                  <>
+                    <li>Use natural light when possible</li>
+                    <li>Enable power-saving settings on your laptop</li>
+                    <li>Use LED desk lamps</li>
+                  </>
+                )}
+                {activity.name === "Cooking" && (
+                  <>
+                    <li>Use microwave for smaller portions</li>
+                    <li>Keep appliances clean for better efficiency</li>
+                    <li>Use lids while cooking to reduce time</li>
+                  </>
+                )}
+                {activity.name === "Bathing" && (
+                  <>
+                    <li>Reduce shower time</li>
+                    <li>Install a low-flow shower head</li>
+                    <li>Set optimal water temperature</li>
+                  </>
+                )}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+};
 
 export default function ActivitiesCard() {
-  const activities = [
-    {
-      name: "Watching TV",
-      icon: <Tv className="w-6 h-6 text-gray-600" />,
-      hours: 2.5,
-      appliances: ["Television", "Sound System"],
-    },
-    {
-      name: "Working",
-      icon: <Laptop className="w-6 h-6 text-gray-600" />,
-      hours: 8,
-      appliances: ["Laptop", "Desk Lamp", "Fan"],
-    },
-    {
-      name: "Cooking",
-      icon: <Microwave className="w-6 h-6 text-gray-600" />,
-      hours: 1.5,
-      appliances: ["Microwave", "Electric Stove", "Hood"],
-    },
-    {
-      name: "Bathing",
-      icon: <ShowerHead className="w-6 h-6 text-gray-600" />,
-      hours: 0.5,
-      appliances: ["Geyser"],
-    },
-  ];
+  const [selectedActivity, setSelectedActivity] = useState(null);
+
+  const handleActivityClick = (activity) => {
+    setSelectedActivity(activity);
+  };
 
   return (
     <div className="w-full h-[35%] bg-inherit p-2">
-      <Card className="">
+      <Card className="border">
         <CardTitle className="flex p-4">Activities</CardTitle>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4">
           {activities.map((activity, index) => (
             <div
               key={index}
               className="bg-white bg-gradient-to-b from-green-100 to-green-200 p-4 rounded-lg shadow-sm hover:shadow-md hover:cursor-pointer transition-shadow"
+              onClick={() => handleActivityClick(activity)}
             >
               <div className="flex items-center gap-2 mb-2">
                 {activity.icon}
@@ -65,6 +153,12 @@ export default function ActivitiesCard() {
           ))}
         </div>
       </Card>
+      
+      <ActivityDialog 
+        activity={selectedActivity}
+        open={!!selectedActivity}
+        onClose={() => setSelectedActivity(null)}
+      />
     </div>
   );
 }
