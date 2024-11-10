@@ -3,7 +3,7 @@ import Dashboard from "@/pages/Dashboard";
 import LandingPage from "@/pages/LandingPage";
 import SignIn from "@/pages/SignIn";
 import SignUp from "@/pages/SignUp";
-import AnalyticsDash from "@/pages/IndividualAnalytics";
+import AnalyticsDash from "@/pages/Analytics";
 import ChallengesCompetitions from "./pages/Challenges";
 import Leaderboard from "./pages/Leaderboard";
 import JoinCompetitionForm from "./pages/JoinCompetitionForm";
