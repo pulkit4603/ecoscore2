@@ -38,6 +38,8 @@ const ChatbotPage = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
 
+    const userName = "Mohan Kumar"; // Replace with the actual user's name
+
     // Listen for global open events
     useEffect(() => {
         const unsubscribe = chatEvents.subscribe(() => {
@@ -48,13 +50,14 @@ const ChatbotPage = () => {
 
     const sendToAPI = async (userMessage) => {
         try {
-            const response = await fetch('API_ENDPOINT', {
+            const response = await fetch('http://127.0.0.1:5000/chat', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    message: userMessage,
+                    user_name: userName,
+                    query: userMessage,
                     timestamp: new Date().toISOString(),
                     sessionId: Math.random().toString(36).substring(7), 
                 })
@@ -74,7 +77,7 @@ const ChatbotPage = () => {
 
     const getMLResponse = async () => {
         try {
-            const response = await fetch('ML_API_ENDPOINT', {
+            const response = await fetch('http://127.0.0.1:5000/chat', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
